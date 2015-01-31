@@ -78,7 +78,7 @@ int main(int argc, const char * argv[]) {
         //Open the log file. Setup headers
         std::ofstream logfile;
         logfile.open(outputFile);
-        logfile << "TIME,EMG[0],EMG[1],EMG[2],EMG[3],EMG[4],EMG[5],EMG[6],EMG[7],ROLL,PITCH,YAW,XACCEL,YACCEL,ZACCEL,POSE" << std::endl;
+        logfile << "TIME,EMG[0],EMG[1],EMG[2],EMG[3],EMG[4],EMG[5],EMG[6],EMG[7],ROLL,PITCH,YAW,OMEGAX,OMEGAY,OMEGAZ,XACCEL,YACCEL,ZACCEL,POSE" << std::endl;
         
         while (1) {
             // In each iteration of our main loop, we run the Myo event loop for a set number of milliseconds.

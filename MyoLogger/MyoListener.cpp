@@ -73,6 +73,13 @@ void MyoListener::onOrientationData(myo::Myo* myo, uint64_t timestamp, const myo
     
 }
 
+void MyoListener::onGyroscopeData(myo::Myo* myo, uint64_t timestamp, const myo::Vector3<float>& gyro) {
+    omegaX = gyro.x();
+    omegaY = gyro.y();
+    omegaZ = gyro.z();
+}
+
+
 // onPose() is called whenever the Myo detects that the person wearing it has changed their pose, for example,
 // making a fist, or not making a fist anymore.
 void MyoListener::onPose(myo::Myo* myo, uint64_t timestamp, myo::Pose pose)
@@ -144,6 +151,9 @@ void MyoListener::print()
     std::cout << "Orientation Data" << std::endl;
     std::cout << roll << ',' << pitch << ',' << yaw << std::endl;
     
+    std::cout << "Angular Velocity Data" << std::endl;
+    std::cout << omegaX << ',' << omegaY << ',' << omegaZ << std::endl;
+    
     //Print out acceleration data.
     std::cout << "Acceleration Data" << std::endl;
     std::cout << xAccel << ',' << yAccel << ',' << zAccel << std::endl;
@@ -167,6 +177,8 @@ void MyoListener::printToStream(std::ostream & out)
     }
     //Orientation Data
     out << roll << ',' << pitch << ',' << yaw << ',';
+    //Angular velocity Data
+    out << omegaX << ',' << omegaY << ',' << omegaZ << ',';
     //Acceleration Data
     out << xAccel << ',' << yAccel << ',' << zAccel << ',';
     //Pose Data

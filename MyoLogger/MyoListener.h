@@ -14,20 +14,22 @@
 #include <array>
 
 class MyoListener : public myo::DeviceListener {
-    // The values of this array is set by onEmgData() above.
+    // The values of this array is set by onEmgData()
     std::array<int8_t, 8> emgSamples;
     
+    //Last timestamp of received emgData.
     uint64_t time;
     
-    // These values are set by onArmSync() and onArmUnsync() above.
+    // These values are set by onArmSync() and onArmUnsync()
     bool onArm;
     myo::Arm whichArm;
     
-    // This is set by onUnlocked() and onLocked() above.
+    // This is set by onUnlocked() and onLocked()
     bool isUnlocked;
     
-    // These values are set by onOrientationData(), onAccelerationData() and onPose() above.
+    // These values are set by onOrientationData(), onGyroscopeData() onAccelerationData() and onPose()
     float roll, pitch, yaw;
+    float omegaX, omegaY, omegaZ;
     float xAccel, yAccel, zAccel;
     myo::Pose currentPose;
 
@@ -45,11 +47,12 @@ class MyoListener : public myo::DeviceListener {
     // onOrientationData() is called whenever the Myo sends new orientation data
     void onOrientationData(myo::Myo* myo, uint64_t timestamp, const myo::Quaternion<float>& quat);
     
+    // onGyroscopeData() is called whenever the Myo sends new angular velocity data.
+    void onGyroscopeData(myo::Myo* myo, uint64_t timestamp, const myo::Vector3<float>& gyro);
     
     // onPose() is called whenever the Myo detects that the person wearing it has changed their pose, for example,
     // making a fist, or not making a fist anymore.
     void onPose(myo::Myo* myo, uint64_t timestamp, myo::Pose pose);
-    
     
     // onArmSync() is called whenever Myo has recognized a Sync Gesture after someone has put it on their
     // arm. This lets Myo know which arm it's on and which way it's facing.
