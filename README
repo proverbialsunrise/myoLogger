@@ -1,0 +1,13 @@
+# MyoLogger
+
+Basic logging software for the Myo armband. Creates a DeviceListener and logs the data that can be recorded. Designed to be called from the command line to log data for experiments. 
+
+Usage:
+
+./MyoLogger -output-file <outfile.csv>
+
+Planned additions:
+
+Log for a particular amount of time.
+Log until a particular event.
+Other options and such.
