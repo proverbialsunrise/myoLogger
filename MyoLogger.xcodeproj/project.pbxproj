@@ -8,23 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		3754D84C1A7D6B4E00AC0479 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3754D84B1A7D6B4E00AC0479 /* main.cpp */; };
+		3754D8541A7D6B9C00AC0479 /* MyoListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3754D8521A7D6B9C00AC0479 /* MyoListener.cpp */; };
+		3754D8571A7D6C4000AC0479 /* myo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754D8561A7D6C4000AC0479 /* myo.framework */; };
+		3754D8581A7D750300AC0479 /* myo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3754D8561A7D6C4000AC0479 /* myo.framework */; };
+		3754D85A1A7D765500AC0479 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754D8591A7D765500AC0479 /* libboost_program_options.dylib */; };
+		3754D85B1A7D766A00AC0479 /* libboost_program_options.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3754D8591A7D765500AC0479 /* libboost_program_options.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3754D8461A7D6B4E00AC0479 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				3754D85B1A7D766A00AC0479 /* libboost_program_options.dylib in CopyFiles */,
+				3754D8581A7D750300AC0479 /* myo.framework in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3754D8481A7D6B4E00AC0479 /* MyoLogger */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyoLogger; sourceTree = BUILT_PRODUCTS_DIR; };
 		3754D84B1A7D6B4E00AC0479 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3754D8521A7D6B9C00AC0479 /* MyoListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyoListener.cpp; sourceTree = "<group>"; };
+		3754D8531A7D6B9C00AC0479 /* MyoListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyoListener.h; sourceTree = "<group>"; };
+		3754D8561A7D6C4000AC0479 /* myo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = myo.framework; sourceTree = "<group>"; };
+		3754D8591A7D765500AC0479 /* libboost_program_options.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_program_options.dylib; path = ../../../../../../usr/local/Cellar/boost/1.57.0/lib/libboost_program_options.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3754D85A1A7D765500AC0479 /* libboost_program_options.dylib in Frameworks */,
+				3754D8571A7D6C4000AC0479 /* myo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +54,7 @@
 		3754D83F1A7D6B4E00AC0479 = {
 			isa = PBXGroup;
 			children = (
+				3754D8551A7D6C1300AC0479 /* Frameworks */,
 				3754D84A1A7D6B4E00AC0479 /* MyoLogger */,
 				3754D8491A7D6B4E00AC0479 /* Products */,
 			);
@@ -58,8 +72,19 @@
 			isa = PBXGroup;
 			children = (
 				3754D84B1A7D6B4E00AC0479 /* main.cpp */,
+				3754D8521A7D6B9C00AC0479 /* MyoListener.cpp */,
+				3754D8531A7D6B9C00AC0479 /* MyoListener.h */,
 			);
 			path = MyoLogger;
+			sourceTree = "<group>";
+		};
+		3754D8551A7D6C1300AC0479 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3754D8591A7D765500AC0479 /* libboost_program_options.dylib */,
+				3754D8561A7D6C4000AC0479 /* myo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3754D84C1A7D6B4E00AC0479 /* main.cpp in Sources */,
+				3754D8541A7D6B9C00AC0479 /* MyoListener.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +228,19 @@
 		3754D8501A7D6B4E00AC0479 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.57.0/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/boost/1.57.0/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -209,6 +248,19 @@
 		3754D8511A7D6B4E00AC0479 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.57.0/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/boost/1.57.0/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
