@@ -4,10 +4,8 @@ Basic logging software for the Myo armband. Creates a DeviceListener and logs th
 
 Usage:
 
-./MyoLogger -output-file <outfile.csv>
+  ./MyoLogger -output-file <outfile.csv> -runtime <seconds>
 
 Planned additions:
 
-Log for a particular amount of time.
 Log until a particular event.
-Other options and such.
