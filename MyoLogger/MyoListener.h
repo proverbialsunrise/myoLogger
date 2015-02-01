@@ -17,9 +17,6 @@ class MyoListener : public myo::DeviceListener {
     // The values of this array is set by onEmgData()
     std::array<int8_t, 8> emgSamples;
     
-    //Last timestamp of received emgData.
-    uint64_t time;
-    
     // These values are set by onArmSync() and onArmUnsync()
     bool onArm;
     myo::Arm whichArm;
@@ -77,9 +74,9 @@ public:
     
     MyoListener();
     
-    void print();
+    void print(float time);
     
-    void printToStream(std::ostream & out);
+    void printToStream(std::ostream & out, float time);
 };
 
 #endif /* defined(__MyoLogger__myoListener__) */

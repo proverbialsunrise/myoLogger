@@ -40,7 +40,6 @@ void MyoListener::onUnpair(myo::Myo* myo, uint64_t timestamp)
 // onEmgData() is called whenever a paired Myo has provided new EMG data, and EMG streaming is enabled.
 void MyoListener::onEmgData(myo::Myo* myo, uint64_t timestamp, const int8_t* emg)
 {
-    time = timestamp;
     for (int i = 0; i < 8; i++) {
         emgSamples[i] = emg[i];
     }
@@ -132,11 +131,11 @@ void MyoListener::onLock(myo::Myo* myo, uint64_t timestamp)
 
 
 // We define this function to print the current values that were updated by the on...() functions above.
-void MyoListener::print()
+void MyoListener::print(float elapsedTime)
 {
     // Clear the current line
     std::cout << '\r';
-    std::cout << "Timestamp: " << time << std::endl;
+    std::cout << "Time: " << elapsedTime << std::endl;
     std::cout << "EMG Data" << std::endl;
     // Print out the EMG data.
     for (size_t i = 0; i < emgSamples.size(); i++) {
@@ -165,10 +164,10 @@ void MyoListener::print()
     std::cout << std::flush;
 }
 
-void MyoListener::printToStream(std::ostream & out)
+void MyoListener::printToStream(std::ostream & out, float elapsedTime)
 {
     //EMG Data
-    out << time << ',';
+    out << elapsedTime << ',';
     for (size_t i = 0; i < emgSamples.size(); i++) {
         std::ostringstream oss;
         oss << static_cast<int>(emgSamples[i]);

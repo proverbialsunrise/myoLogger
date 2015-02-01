@@ -13,19 +13,25 @@
 #include "myoListener.h"
 
 #include <boost/program_options.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+
+namespace po = boost::program_options;
+namespace ptime = boost::posix_time;
 
 int main(int argc, const char * argv[]) {
     //Parse arguments
-    std::string outputFile = std::string("testFile.csv");
+    std::string outputFile;
+    float runtime;
     
-    boost::program_options::options_description desc("Allowed options");
+    po::options_description desc("Allowed options");
     desc.add_options()
     ("help", "Produce help message")
-    ("output-file,O", boost::program_options::value<std::string>(&outputFile)->default_value(std::string("testFile.csv")), "file to save results to")
+    ("output-file", po::value<std::string>(&outputFile)->default_value(std::string("testFile.csv")), "file to save results to")
+    ("runtime", po::value<float>(&runtime)->default_value(-1.0), "Record data for <runtime> seconds")
     ;
-    boost::program_options::variables_map vm;
-    boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), vm);
-    boost::program_options::notify(vm);
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm);
     
     //Print out the help text
     if (vm.count("help")) {
@@ -36,8 +42,13 @@ int main(int argc, const char * argv[]) {
     
     if (vm.count("output-file")) {
         std::cout << "Outputting log to: " << vm["output-file"].as<std::string>() << std::endl;
-        
     }
+    
+
+    if (runtime > 0) {
+        std::cout << "Running for " << vm["runtime"].as<float>() << " seconds." << std::endl;
+    }
+
     
     
     
@@ -80,14 +91,32 @@ int main(int argc, const char * argv[]) {
         logfile.open(outputFile);
         logfile << "TIME,EMG[0],EMG[1],EMG[2],EMG[3],EMG[4],EMG[5],EMG[6],EMG[7],ROLL,PITCH,YAW,OMEGAX,OMEGAY,OMEGAZ,XACCEL,YACCEL,ZACCEL,POSE" << std::endl;
         
-        while (1) {
+        
+        //Determine if we're running the listener loop for a certain amount of time. If so, setup the necessary variables to handle that.
+        bool runForTime = false;
+        ptime::ptime startTime;
+        if (runtime > 0) {
+            runForTime = true;
+            startTime = ptime::microsec_clock::local_time();
+        }
+        
+
+        ptime::ptime currentTime = ptime::microsec_clock::local_time();
+        ptime::time_duration elapsedTime = currentTime - startTime;
+        
+        
+        while (!(runForTime) || elapsedTime.total_milliseconds() <  runtime * 1000.0) {
             // In each iteration of our main loop, we run the Myo event loop for a set number of milliseconds.
             // In this case, we wish to update our display 50 times a second, so we run for 1000/20 milliseconds.
             hub.run(1000/20);
+            
+            //Update the time checks
+            currentTime = ptime::microsec_clock::local_time();
+            elapsedTime = currentTime - startTime;
             // After processing events, call the print() member function we defined above to print out the values we've
             // obtained from any events that have occurred. Then print to the log file.
-            listener.print();
-            listener.printToStream(logfile);
+            listener.print(elapsedTime.total_milliseconds());
+            listener.printToStream(logfile, elapsedTime.total_milliseconds());
         }
         
         // If a standard exception occurred, we print out its message and exit.
